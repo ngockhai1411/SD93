@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/banner.js"></script>
+    <script>
+        window.onload = function() {
+            loadBanner(0,null);
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-12 header-sp">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a onclick="clearData()" data-bs-toggle="modal" data-bs-target="#addtk" href="#" class="btn btn-success"><i class="fa fa-plus"></i> Thêm banner</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="wrapper">
+                        <div class="headertable">
+                            <div class="divsearchtb">
+                                <label>search: </label>
+                                <input onkeyup="loadBanner(0,this.value)" id="searchtable" placeholder="tìm kiếm" class="inputsearchtable">
+                            </div>
+                        </div>
+                        <table class="table table-striped tablefix">
+                            <thead class="thead-tablefix">
+                            <tr>
+                                <th>id</th>
+                                <th>Ảnh</th>
+                                <th>Loại banner</th>
+                                <th>Tên trang</th>
+                                <th>Link web</th>
+                                <th>Id sản phẩm</th>
+                                <th class="sticky-col">Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listbanner">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pageable">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<div class="modal fade" id="addtk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm cập nhật banner</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body row">
+                <form action="javascript:saveBanner()" class="col-sm-6" style="margin: auto;">
+                    <input id="idbanner" type="hidden" class="form-control">
+                    <label class="lb-form">Tên trang</label>
+                    <input id="tentrang" type="text" placeholder="xyz" class="form-control">
+                    <label class="lb-form">Loại banner</label>
+                    <select id="bannerType" class="form-control">
+                        <option value="TOP">Banner top</option>
+                        <option value="NORMAL">Banner thường</option>
+                    </select>
+                    <label class="lb-form">Id sản phẩm</label>
+                    <input id="idsanpham" type="text" class="form-control">
+                    <label class="lb-form">Link web</label>
+                    <input id="linkweb" type="text" placeholder="link website sau khi click" class="form-control">
+                    <label class="lb-form">Ảnh banner</label>
+                    <input id="chonfileanh" type="file" class="form-control">
+                    <img src="" id="imgbannerpre" style="width: 100px; margin-top: 10px;margin-bottom: 10px;">
+                    <br>
+                    <div id="loading">
+                        <div class="bar1 bar"></div>
+                    </div><br>
+                    <button class="form-control btn btn-primary">Thêm/ cập nhật danh mục</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

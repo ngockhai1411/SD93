@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        window.onload = function() {
+            thongke();
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-md-9 animated bounce">
+                    <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
+                        <div class="ms-3">
+                            <img alt="" src="../image/lich.png">
+                            <h2 class=" text-uppercase fw-weight-bold mb-0">
+                                <script language="javascript">
+                                    document.write(day_name);
+                                </script>
+                            </h2>
+                            <p class="text-gray fst-italic mb-0">
+                            <div id="digital-clock"></div>
+                            </p>
+                        </div>
+                    </div>
+                    <h2 class="" style="margin-top: 20px;">Thông báo</h2>
+                    <p style="font-size: 26px">Bạn có: </p>
+                    <ul class="list-group">
+                        <li data-bs-toggle="modal" data-bs-target="#modeltb" class="list-group-item d-flex justify-content-between align-items-center" id="lienHeMoi"><img alt="" src="../image/lienhe.png" style="margin-right: 10px;">
+                            <a href="#example" style="font-size: 20px; font-family: 'auto'; color: #286090"> <b>
+                                người dùng mới trong tháng này</b></a> <span style="font-size: 18px; font-family: Arial, Helvetica, sans-serif; background-color: #740025;margin-top: 3.5px;padding-top: 5px;" class="badge bg-primary rounded-pill">
+                                    <span id="numnewuser">0</span></li>
+                    </ul>
+                    <div class="thongke">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="thongke1">
+                                    <div class="texts">Doanh thu tháng này (VND)</div>
+                                    <div>
+                                    </div>
+                                    <div class="soluong">
+                                        <b id="doanhThu"></b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="thongke2">
+                                    <div class="texts">Số lượng quản trị</div>
+                                    <div>
+                                    </div>
+                                    <div class="soluong">
+                                        <b id="soLuongNV"></b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="thongke3">
+                                    <div class="texts">Số lượng mặt hàng hiện có</div>
+                                    <div>
+                                    </div>
+                                    <div class="soluong">
+                                        <b id="soLuongMH"></b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="thongke4">
+                                    <div class="texts">Doanh thu trong ngày (VND)</div>
+                                    <div>
+                                    </div>
+                                    <div class="soluong">
+                                        <b id="doanhThuNgay"></b>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="thongke5">
+                                    <div class="texts">Số đơn hàng hoàn thành trong ngày</div>
+                                    <div>
+                                    </div>
+                                    <div class="soluong">
+                                        <b id="donhoanthanh"></b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+    <th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<aside th:fragment="sidenavAdmin" id="sidebar-left" class="sidebar-left">
+  <div class="sidebar-header">
+    <div class="sidebar-title">
+
+    </div>
+    <div class="sidebar-toggle d-none d-md-block" data-toggle-class="sidebar-left-collapsed"
+         data-target="html" data-fire-event="sidebar-left-toggle">
+      <i class="fas fa-bars" aria-label="Toggle sidebar"></i>
+    </div>
+  </div>
+  <div class="nano">
+    <div class="nano-content">
+      <nav id="menu" class="nav-main" role="navigation">
+        <ul class="nav nav-main">
+
+          <li>
+            <a class="nav-link" href="/admin/chat">
+              <i class="fas fa-comments"></i>
+              <span>Tin nhắn</span>
+            </a>
+          </li>
+          <li class="nav-parent">
+            <a class="nav-link" href="#">
+              <i class="fas fa-th-list"
+                 aria-hidden="true"></i>
+              <span>Quản lý danh mục</span>
+            </a>
+            <ul class="nav nav-children">
+              <li>
+                <a class="nav-link" href="/admin/danhmuc">
+                  Danh sách danh mục
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-parent">
+            <a class="nav-link" href="#">
+              <i class="fas fa-sign"
+              aria-hidden="true"></i>
+              <span>Quản lý banner</span>
+            </a>
+            <ul class="nav nav-children">
+              <li>
+                <a class="nav-link" href="/admin/banner">
+                  Danh sách banner
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-parent">
+            <a class="nav-link" href="#">
+              <i class="fas fa-copyright" aria-hidden="true"></i>
+              <span>Quản lý nhãn hiệu</span>
+            </a>
+            <ul class="nav nav-children">
+              <li>
+                <a class="nav-link" href="/admin/brands">
+                  Danh sách nhãn hiệu
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-parent">
+            <a class="nav-link" href="#">
+              <i class="bx bx-loader-circle" aria-hidden="true"></i>
+              <span>Quản lý sản phẩm</span>
+            </a>
+            <ul class="nav nav-children">
+              <li>
+                <a class="nav-link" href="/admin/product">
+                  Danh sách sản phẩm
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/admin/addproduct">
+                  Thêm mới sản phẩm
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/admin/soles">
+                  Danh sách đế giày
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/admin/materials">
+                  Danh sách chất liệu
+                </a>
+
+              </li>
+            </ul>
+          </li>
+          <li class="nav-parent">
+            <a class="nav-link" href="#">
+              <i class="bx bx-cube" aria-hidden="true"></i>
+              <span>Quản lý bài viết</span>
+            </a>
+            <ul class="nav nav-children">
+              <li>
+                <a class="nav-link" href="/admin/blog">
+                  Danh sách bài viết
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-parent">
+            <a class="nav-link" href="#">
+              <i class="bx bx-collection" aria-hidden="true"></i>
+              <span>Quản lý khuyến mại</span>
+            </a>
+            <ul class="nav nav-children">
+              <li>
+                <a class="nav-link" href="/admin/voucher">
+                  Danh sách khuyến mại
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-parent">
+            <a class="nav-link" href="#">
+              <i class="bx bx-cart-alt" aria-hidden="true"></i>
+              <span>Quản lý đơn hàng</span>
+            </a>
+            <ul class="nav nav-children">
+              <li>
+                <a class="nav-link" href="/admin/invoice">
+                  Danh sách đơn hàng
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-parent">
+            <a class="nav-link" href="#">
+              <i class="fas fa-user-injured"></i>
+              <span>Quản lý tài khoản</span>
+            </a>
+            <ul class="nav nav-children">
+              <li>
+                <a class="nav-link" href="/admin/taikhoan">
+                  Danh sách tài khoản
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a class="nav-link" href="/admin">
+              <i class="bx bx-home-alt" aria-hidden="true"></i>
+              <span>Thống Kê</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" href="/admin/doanhthu">
+              <i class="fas fa-chart-line"></i>
+
+              <span>Doanh thu</span>
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</aside>
+
+<header th:fragment="headerAdmin" class="header">
+  <div class="logo-container">
+    <a href="" class="logo"> <img src="https://i.imgur.com/IjkFO9h.png" width="100" height="35" alt="Porto Admin"/>
+    </a>
+  </div>
+
+  <div class="header-right">
+    <span class="separator"></span>
+    <div id="userbox" class="userbox">
+      <a href="#" data-toggle="dropdown">
+        <figure class="profile-picture">
+          <img src="/adminlte/img/avatar.png" alt="Joseph Doe" class="rounded-circle"
+               data-lock-picture="img/%21logged-user.jpg"/>
+        </figure>
+        <div class="profile-info" >
+          <span class="name">admin</span>
+          <span class="role">Administrator</span>
+        </div>
+        <i class="fa custom-caret"></i>
+      </a>
+      <div class="dropdown-menu">
+        <ul class="list-unstyled mb-2">
+          <li class="divider"></li>
+          <li>
+            <a role="menuitem" tabindex="-1" href="#" onclick="logout()"><i class="bx bx-power-off"></i> Đăng xuất</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script>
+    function logout(){
+      window.localStorage.removeItem("token");
+      window.localStorage.removeItem("user");
+      window.location.href='/logout'
+    }
+  </script>
+</header>
+
+<header class="page-header" th:fragment="pageHeader">
+  <div class="right-wrapper text-right">
+    <ol class="breadcrumbs">
+      <li>
+
+      </li>
+    </ol>
+
+  </div>
+</header>
+
+</body>
+</html>

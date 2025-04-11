@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+
+  <script src="js/menu.js"></script>
+  <script src="js/sole.js"></script>
+  <script>
+    window.onload = function() {
+      loadResult();
+    }
+  </script>
+</head>
+
+<body>
+<section class="body">
+  <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+  <div class="inner-wrapper">
+    <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+    <section role="main" class="content-body" id="main-content">
+      <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+      <div class="row">
+        <div class="col-sm-12 header-sp">
+          <div class="row">
+            <div class="col-md-3">
+              <a onclick="clearData()" data-bs-toggle="modal" data-bs-target="#addtk" href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>Id</th>
+              <th>Tên đế giày</th>
+              <th class="sticky-col">Hành động</th>
+            </tr>
+            </thead>
+            <tbody id="listresult">
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<div class="modal fade" id="addtk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Thêm cập nhật</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body row">
+        <form action="javascript:saveResult()" class="col-sm-6" style="margin: auto;">
+          <input id="idres" type="hidden" class="form-control">
+          <label class="lb-form">Tên</label>
+          <input id="name" type="text" class="form-control">
+          <br>
+          <button class="form-control btn btn-primary">Thêm/ cập nhật </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>

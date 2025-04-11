@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="/webjars/jquery/dist/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/chat.js"></script>
+    <script>
+        window.onload = function() {
+            loadListUserChat();
+            loadTinNhan();
+        }
+    </script>
+</head>
+<style>/* CSS cho danh sách user chat */
+#listuserchat .trhoverchat {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#listuserchat .trhoverchat:hover {
+    background-color: #f0f0f0;
+}
+#listuserchat .activetrhoverchat{
+    background-color: #f0f0f0;
+}
+
+#listuserchat .col45 {
+    width: 45px;
+}
+
+#listuserchat .imgavatarchat {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover; /* Để ảnh không bị méo */
+}
+
+#listuserchat .timechat {
+    display: block;
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
+}
+/* CSS cho nội dung tin nhắn cuối cùng ở danh sách user*/
+#listuserchat .last-message {
+    font-size: 13px;
+    color: #777;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px; /* Độ rộng tối đa của tin nhắn*/
+    display: inline-block; /* cho tin nhắn hiển thị trên 1 dòng */
+    margin-top: 3px;
+}
+/* css cho tin nhắn bên chat */
+.mychat, .adminchat {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    clear: both; /* Đảm bảo các tin nhắn không bị chồng lên nhau */
+    white-space: pre-wrap; /* Cho phép xuống dòng nếu tin nhắn dài */
+    word-break: break-word; /* Cho phép ngắt từ dài nếu quá dài */
+}
+
+.mychat {
+    background-color: #e8f5ff;
+    color: #333;
+    float: right; /* Tin nhắn của user sẽ ở bên phải */
+}
+
+.adminchat {
+    background-color: #f0f0f0;
+    color: #333;
+    float: left; /* Tin nhắn của admin ở bên trái */
+}
+.contentchatadmin {
+    overflow-y: auto; /* Cho phép cuộn khi quá nhiều tin nhắn */
+    max-height: 400px; /* Điều chỉnh cho phù hợp */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-area-footer {
+    display: flex;
+    align-items: center; /* Căn giữa nội dung theo chiều dọc */
+    border-top: 1px solid #ddd; /* Thêm đường kẻ ở trên */
+    padding: 10px;
+}
+
+.inputchatadmin {
+    flex: 1; /* Cho input chiếm toàn bộ không gian còn lại */
+    padding: 8px; /* Thêm padding cho đẹp */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px; /* Thêm khoảng cách với nút gửi */
+}
+
+.btn-send-message {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-send-message:hover {
+    background-color: #0056b3;
+}
+#mainchatadmin {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-chat-admin {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    background-color: #f8f9fa;
+    border-radius: 5px 5px 0 0;
+}</style>
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-3">
+                    <table class="table table-borderless" id="tableuserchat">
+                        <thead>
+                        <tr>
+                            <td colspan="2">
+                                <input onkeyup="loadListUserChat()" id="keysearchuser" class="form-control" type="text" placeholder="Tìm kiếm">
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody id="listuserchat">
+                        <tr class="pointer trhoverchat">
+                            <td class="col45"><img src="../image/avatar.png" class="imgavatarchat"></td>
+                            <td><span class="timechat">9:80 18-08-2024</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-9">
+                    <div class="mainchatadmin" id="mainchatadmin">
+                        <div class="header-chat-admin form-control">
+                        </div>
+                        <div class="contentchatadmin" id="listchatadmin">
+
+                        </div>
+                        <div style="height: 50px;"></div>
+                        <br>
+                        <div class="chat-area-footer">
+                            <input type="text" id="contentmess" class="inputchatadmin" placeholder="write message" />
+                            <button class="btn-send-message" id="sendmess"><i class="fa fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+
+</html>

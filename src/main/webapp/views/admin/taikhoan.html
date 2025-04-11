@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/taikhoan.js"></script>
+    <script>
+        window.onload = function() {
+            loadAllUser(0, "");
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-12 header-sp">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-6">
+                            <label>&ThinSpace;</label><br>
+                            <a data-bs-toggle="modal" data-bs-target="#addtk" class="btn btn-success"><i class="fa fa-plus"></i> Thêm admin</a>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-6">
+                            <label class="lb-form">Chọn quyền</label>
+                            <select onchange="filteruser()" id="role" class="form-control">
+                                <option value="">Tất cả quyền</option>
+                                <option value="ROLE_USER">Tài khoản người dùng</option>
+                                <option value="ROLE_ADMIN">Tài khoản admin</option>
+                                <option value="ROLE_EMPLOYEE">Tài khoản nhân viên</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="wrapper">
+                        <div class="headertable">
+                            <div class="divsearchtb">
+                                <label>Tìm kiếm: </label>
+                                <input onkeyup="searchTable()" id="searchtable" placeholder="Nhập email hoặc sđt..." class="inputsearchtable">
+                            </div>
+                        </div>
+                        <table class="table table-striped tablefix">
+                            <thead class="thead-tablefix">
+                            <tr>
+                                <th>id</th>
+                                <th>Email</th>
+                                <th>Họ tên</th>
+                                <th>Số điện thoại</th>
+                                <th>Ngày tạo</th>
+                                <th>Quyền</th>
+                                <th class="sticky-col">Khóa</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listuser">
+                            <tr>
+                                <td>#2342</td>
+                                <td>hieutran@gmail.com</td>
+                                <td>danh mục 1</td>
+                                <td>danh mục 1</td>
+                                <td>18-09-2023</td>
+                                <td>ROLE_USER</td>
+                                <td class="sticky-col">xoas</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pageable">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<div class="modal" id="addtk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Thêm tài khoản quản trị</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body row">
+                <form action="javascript:addAdmin()" class="col-sm-6" style="margin: auto;">
+                    <label class="lb-form">Họ tên</label>
+                    <input id="fullname" class="form-control">
+                    <label class="lb-form">Số điện thoại</label>
+                    <input id="phone" class="form-control">
+                    <label class="lb-form">Email</label>
+                    <input required id="email" class="form-control">
+                    <label class="lb-form">Mật khẩu</label>
+                    <input required id="pass" type="password" class="form-control">
+                    <label class="lb-form">Nhắc lại mật khẩu</label>
+                    <input required id="repass" type="password" class="form-control">
+                    <label class="lb-form">Chọn quyền</label>
+                    <select required id="quyen" type="password" class="form-control">
+                        <option value="ROLE_ADMIN">Quyền admin</option>
+                        <option value="ROLE_EMPLOYEE">Quyền nhân viên</option>
+                    </select>
+                    <br>
+                    <button class="form-control btn btn-primary">Thêm tài khoản</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

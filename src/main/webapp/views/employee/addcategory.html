@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="/admin/js/menu.js"></script>
+    <script src="/admin/js/category.js"></script>
+    <script>
+        window.onload = function() {
+            loadAllCategory(null);
+            loadACategory();
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavEmployee"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="lb-form">Tên danh mục</label>
+                    <input id="catename" type="text" class="form-control">
+                    <label class="checkbox-custom">Danh mục chính
+                        <input id="primaryCate" type="checkbox">
+                        <span class="checkmark-checkbox"></span>
+                    </label><br>
+                    <label class="lb-form">Ảnh danh mục</label>
+                    <input id="fileimage" type="file" class="form-control">
+                    <img id="imgpreview" style="width: 120px; margin-top: 15px;margin-bottom: 15px;display: block;">
+                    <label class="lb-form">Danh mục cha</label>
+                    <select id="listdpar" class="form-control" style="z-index: 10000;">
+                        <option value=""></option>
+                    </select>
+                    <br><br>
+                    <button onclick="saveCategory()" class="btn btn-success form-control action-btn">Thêm/ Cập nhật danh mục</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<script>
+    fileimage.onchange = evt => {
+        const [file] = fileimage.files
+        if (file) {
+            imgpreview.src = URL.createObjectURL(file)
+        }
+    }
+</script>
+
+</html>

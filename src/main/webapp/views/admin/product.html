@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/category.js"></script>
+    <script src="js/product.js"></script>
+    <script>
+        window.onload = function() {
+            loadAllCategorySelect();
+            loadProduct(0, "", null);
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-12 header-sp">
+                    <div class="row align-items-center">
+                        <div class="col-md-3 col-sm-12">
+                            <a href="addproduct" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm sản phẩm</a>
+                        </div>
+
+                        <div class="col-md-3 col-sm-12">
+                            <input onkeyup="loadProduct(0,this.value,null)" id="searchtable" placeholder="Nhập tên sản phẩm..." class="inputsearchtable" style="width: 100%;">
+                        </div>
+                    </div>
+                </div>
+                        <table class="table table-striped tablefix">
+                            <thead class="thead-tablefix">
+                            <tr>
+                                <th>id</th>
+                                <th>Ảnh</th>
+                                <th>Mã</th>
+                                <th>Danh mục</th>
+                                <th>Thông tin</th>
+                                <th>Tên</th>
+                                <th>Giá</th>
+                                <th>Ngày tạo</th>
+                                <th>Số lượng bán</th>
+                                <th class="sticky-col">Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listproduct">
+                            <tr>
+                                <td>#2342</td>
+                                <td><img src="" style="width: 100px;"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sticky-col">
+
+                                    <i class="fa fa-edit iconaction"></i><br>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pageable">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+
+</html>

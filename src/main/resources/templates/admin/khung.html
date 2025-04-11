@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+  <script src="js/menu.js"></script>
+  <script src="js/voucher.js"></script>
+  <script>
+    window.onload = function() {
+      loadVoucher(0, null, null);
+    }
+  </script>
+</head>
+
+<body>
+<section class="body">
+  <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+  <div class="inner-wrapper">
+    <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+    <section role="main" class="content-body" id="main-content">
+      <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+      <div class="row">
+        <div class="col-sm-12 header-sp">
+          <div class="row">
+            <div class="col-md-2 col-sm-4 col-4">
+              <label class="lb-form">Từ ngày</label>
+              <input id="start" type="date" class="form-control">
+            </div>
+            <div class="col-md-2 col-sm-4 col-4">
+              <label class="lb-form">Đến ngày</label>
+              <input id="end" type="date" class="form-control">
+            </div>
+            <div class="col-md-2 col-sm-4 col-4">
+              <label class="lb-form" style="display: block;">&ThickSpace;</label>
+              <button onclick="filter()" class="btn btn-success"><i class="fa fa-filter"></i> Lọc</button>
+            </div>
+            <div class="col-md-3">
+              <label class="lb-form" style="display: block;">&ThickSpace;</label>
+              <a href="addvoucher" class="btn btn-success"><i class="fa fa-plus"></i> Thêm voucher</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="wrapper">
+            <table class="table table-striped tablefix">
+              <thead class="thead-tablefix">
+              <tr>
+                <th>id</th>
+                <th>Mã</th>
+                <th>Tên voucher</th>
+                <th>Đơn hàng tối thiểu</th>
+                <th>Giảm giá</th>
+                <th>Ngày bắt đầu</th>
+                <th>Ngày kết thúc</th>
+                <th>Trạng thái</th>
+                <th class="sticky-col">Hành động</th>
+              </tr>
+              </thead>
+              <tbody id="listvoucher">
+              <tr>
+                <td>#2342</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="sticky-col">
+                  <i class="fa fa-lock iconaction"></i>
+                  <i class="fa fa-edit iconaction"></i><br>
+                  <i class="fa fa-edit iconaction"></i><br>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination" id="pageable">
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+</html>

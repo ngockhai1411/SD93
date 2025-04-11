@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/importproduct.js"></script>
+    <script>
+        window.onload = function() {
+            loadAllProductSelect(true);
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="title-add-admin">
+                    <p>Thêm/ cập nhật đơn nhập</p>
+                </div>
+                <div class="form-add row" style="padding-bottom: 30px;">
+                    <div class="col-sm-5">
+                        <label class="lb-form">sản phẩm</label>
+                        <select onchange="loadColor(this.value)" id="sanpham" class="form-control" data-live-search="true">
+                        </select>
+                        <label class="lb-form">Màu sắc</label>
+                        <select id="colors" class="form-control" data-live-search="true">
+                        </select>
+                        <label class="lb-form">Kích thước</label>
+                        <select id="sizes" class="form-control" data-live-search="true">
+                        </select>
+                        <label class="lb-form">Số lượng</label>
+                        <input id="soluong" type="number" class="form-control">
+                        <label class="lb-form">giá nhập</label>
+                        <input id="gianhap" type="number" class="form-control"><br><br>
+                        <button onclick="saveImportPro()" class="btn btn-success form-control action-btn">Thêm/ Cập nhật đơn nhập</button>
+                    </div>
+                    <div class="col-sm-7">
+                        <label class="lb-form">Mô tả</label>
+                        <textarea id="editor" name="content" placeholder="thông tin nhập hàng"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<script src="https://cdn.tiny.cloud/1/f6s0gxhkpepxkws8jawvfwtj0l9lv0xjgq1swbv4lgcy3au3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#editor',
+    });
+</script>
+
+</html>

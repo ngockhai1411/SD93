@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/blog.js"></script>
+    <script>
+        window.onload = function() {
+            loadBlog(0);
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-12 header-sp">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="addblog" class="btn btn-success"><i class="fa fa-plus"></i> Thêm bài viết</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="wrapper">
+                        <div class="headertable">
+                            <div class="divsearchtb">
+                                <label>Sắp xếp theo: </label>
+                                <select onchange="loadBlog(0)" id="sort">
+                                    <option value="id,asc">Cũ nhất</option>
+                                    <option value="id,desc">Mới nhất</option>
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table table-striped tablefix">
+                            <thead class="thead-tablefix">
+                            <tr>
+                                <th>id bài viết</th>
+                                <th>Ảnh bìa</th>
+                                <th>ngày tạo</th>
+                                <th>tiêu đề bài viết</th>
+                                <th>mô tả</th>
+                                <th class="sticky-col">Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listblog">
+                            <tr>
+                                <td>#2342</td>
+                                <td><img src="" style="width: 100px;"></td>
+                                <td>2023-02-19</td>
+                                <td>đây là tiêu đề</td>
+                                <td>đây là mô tả</td>
+                                <td class="sticky-col">
+                                    <i class="fa fa-trash-alt iconaction"></i>
+                                    <i class="fa fa-edit iconaction"></i><br>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pageable">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+
+</html>

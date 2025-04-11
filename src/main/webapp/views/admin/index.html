@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/doanhthu.js"></script>
+    <script>
+        window.onload = function() {
+            getMauSac();
+            thongke();
+            revenueYear(new Date().getFullYear());
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-md-9 animated bounce">
+                    <div class="d-flex align-items-center mb-4 pb-4 border-bottom">
+                        <div class="ms-3">
+                            <img alt="" src="../image/lich.png">
+                            <h2 class=" text-uppercase fw-weight-bold mb-0">
+                                <script language="javascript">
+                                    document.write(day_name);
+                                </script>
+                            </h2>
+                            <p class="text-gray fst-italic mb-0">
+                            <div id="digital-clock"></div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-lefts shadow h-100 py-2">
+                            <span class="lbcard">Doanh thu tháng này (VND)</span>
+                            <span className='solieudoanhthu' id="doanhThu">0</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-lefts shadow h-100 py-2">
+                            <span class="lbcard">Doanh thu hôm nay</span>
+                            <span className='solieudoanhthu' id="doanhThuNgay">0</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-lefts shadow h-100 py-2">
+                            <span class="lbcard">Số lượng quản trị</span>
+                            <span className='solieudoanhthu' id="soLuongNV"></span>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-lefts shadow h-100 py-2">
+                            <span class="lbcard">Đơn hoàn thành hôm nay</span>
+                            <span className='solieudoanhthu' id="donhoanthanh">0</span>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-lefts shadow h-100 py-2">
+                            <span class="lbcard">Số lượng mặt hàng hiện có</span>
+                            <span className='solieudoanhthu' id="soLuongMH">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 header-sp row ">
+                        <div class="col-md-3">
+                            <p class="loctheongay">Chọn năm cần xem</p>
+                            <select id="nams" class="form-control">
+                                <option id="2023">2023</option>
+                                <option id="2024">2024</option>
+                                <option id="2025">2025</option>
+                                <option id="2026">2026</option>
+                                <option id="2027">2027</option>
+                                <option id="2028">2028</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2"><br>
+                            <button onclick="loadByNam()" class="btn btn-primary form-control" style="margin-top: 10px;"><i class="fa fa-filter"></i> Lọc</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 divtale">
+                        <div class="card chart-container divtale">
+                            <canvas id="chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <h5 style="display: block; margin-top: 40px">Sản phẩm bán chạy tháng này</h5>
+                <table class="table table-striped tablefix">
+                    <thead class="thead-tablefix">
+                    <tr>
+                        <th>id</th>
+                        <th>Ảnh</th>
+                        <th>Mã</th>
+                        <th>Danh mục</th>
+                        <th>Thông tin</th>
+                        <th>Tên</th>
+                        <th>Giá</th>
+                        <th>Số lượng bán</th>
+                    </tr>
+                    </thead>
+                    <tbody id="listproduct">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</section>
+    <th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<script>
+    function getMauSac(){
+        var arr = ['#4e73df','#1cc88a','#36b9cc','#eb9534','#ed00c6','#edd500']
+        var act = document.getElementsByClassName("border-lefts");
+        var lbcard = document.getElementsByClassName("lbcard");
+        for(var i=0; i<act.length; i++){
+            act[i].style.borderLeft = '.25rem solid '+arr[i]
+        }
+        for(var i=0; i<lbcard.length; i++){
+            lbcard[i].style.color = arr[i]
+        }
+    }
+</script>
+</html>

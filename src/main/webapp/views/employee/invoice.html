@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="/admin/js/menu.js"></script>
+    <script src="/admin/js/invoice.js"></script>
+    <script>
+        window.onload = function() {
+            loadAllStatus();
+            loadInvoice(0);
+            loadStatusUpdate();
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavEmployee"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-12 header-sp">
+                    <div class="row filterdonhang">
+                        <div class="col-md-2">
+                            <label>Từ ngày</label>
+                            <input id="start" type="date" class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Đến ngày</label>
+                            <input id="end" type="date" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Loại thanh toán</label>
+                            <select id="type" class="form-control">
+                                <option value="-1">--- Tất cả ---</option>
+                                <option value="PAYMENT_MOMO">Thanh toán bằng momo</option>
+                                <option value="PAYMENT_DELIVERY">Thanh toán khi nhận hàng</option>
+                                <option value="PAYMENT_VNPAY">Thanh toán vnpay</option>
+                                <option value="PAYMENT_GPAY">Thanh toán gpay</option>
+                                <option value="PAY_COUNTER">Thanh toán tại quầy</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Trạng thái đơn hàng</label>
+                            <select class="form-control" id="trangthai">
+                                <option value="-1">--- Tất cả ---</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>&ThinSpace;</label>
+                            <button onclick="loadInvoice(0)" class="btn btn-danger form-control"><i class="fa fa-filter"></i> Lọc</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="wrapper">
+                        <div class="headertable">
+                            <div class="divsearchtb">
+                                <label>Sắp xếp theo: </label>
+                                <select onchange="loadInvoice(0)" id="sort">
+                                    <option value="id,desc">Mới nhất</option>
+                                    <option value="id,asc">Cũ nhất</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <table class="table table-striped tablefix">
+                            <thead class="thead-tablefix">
+                            <tr>
+                                <th>Mã đơn hàng</th>
+                                <th class="floatr">Ngày đặt</th>
+                                <th>Địa chỉ</th>
+                                <th class="floatr">Giá trị<br>đơn hàng</th>
+                                <th>Trạng thái thanh toán</th>
+                                <th class="floatr">Trạng thái vận chuyển</th>
+                                <th>Loại thanh toán</th>
+                                <th class="sticky-col">Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listinvoice">
+                            <tr>
+                                <td>#2342</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sticky-col">
+                                    <i class="fa fa-trash-alt iconaction"></i>
+                                    <i class="fa fa-edit iconaction"></i><br>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pageable">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<div class="modal fade" id="capnhatdonhang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cập nhật trạng thái đơn hàng</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body">
+                <input type="hidden" id="iddonhangupdate">
+                <select class="form-control" id="trangthaiupdate">
+                    <option>Chọn trạng thái</option>
+                </select><br><br>
+                <button onclick="updateStatus()" class="btn btn-primary form-control action-btn">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modaldeail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-fullscreen-sm-down modeladdres">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row headerdetail">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                        <br><span>Ngày tạo: <span class="yls" id="ngaytaoinvoice">11:37 21/ 09/ 2023</span></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                        <br><span>Trạng thái thanh toán: <span class="yls" id="trangthaitt">Chưa thanh toán</span></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                        <br><span>Trạng thái vận chuyển: <span class="yls" id="ttvanchuyen">Chưa chuyển</span></span>
+                    </div>
+                </div>
+                <div class="row shipinfor">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <span class="ttshipinfor">Địa chỉ giao hàng</span>
+                        <div class="blockinfor">
+                            <p class="tennguoinhan" id="tennguoinhan">HIẾU TRẦN</p>
+                            <span>Địa chỉ: <span id="addnhan">gia lam, ha noi, viet nam, vietnam, Quận Đống Đa, Hà Nội</span></span>
+                            <br><span class="phoneacc">Số điện thoại: <span id="phonenhan">+84382267161</span></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                        <span class="ttshipinfor">Thanh toán</span>
+                        <div class="blockinfor">
+                            <span id="loaithanhtoan">Thanh toán khi nhận hàng (COD)</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
+                        <span class="ttshipinfor">Ghi chú</span>
+                        <div class="blockinfor">
+                            <span id="ghichunh">Không có ghi chú</span>
+                        </div>
+                    </div>
+                </div><br><br>
+                <table class="table table-cart table-order" id="detailInvoice">
+                    <thead class="thead-default theaddetail">
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th></th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng</th>
+                    </tr>
+                    </thead>
+                    <tbody id="listDetailinvoice">
+                    <tr>
+                        <td><img src="image/sp1.webp" class="imgdetailacc"></td>
+                        <td>
+                            <a href="">Áo Thun Thể Thao Nam Run</a><br>
+                            <span>Đen / L</span><br>
+                            <span>Mã sản phẩm: STM6099-DEN-L</span><br>
+                            <span class="slmobile">SL: 1</span>
+                        </td>
+                        <td>269.000đ</td>
+                        <td class="sldetailacc">1</td>
+                        <td class="pricedetailacc yls">269.000đ</td>
+                    </tr>
+                    </tbody>
+                </table><br><br><br><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

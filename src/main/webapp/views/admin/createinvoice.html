@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+  <script src="js/menu.js"></script>
+  <script src="js/product.js"></script>
+  <script src="js/invoice.js"></script>
+  <script src="js/voucher.js"></script>
+  <script>
+    window.onload = function() {
+        loadAllProductList();
+        loadVoucherDonHang();
+    }
+  </script>
+</head>
+
+<body>
+<section class="body">
+  <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+  <div class="inner-wrapper">
+    <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+    <section role="main" class="content-body" id="main-content">
+      <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+      <div class="row">
+        <div class="col-sm-6">
+          <input onkeyup="loadAllProductList()" id="search" class="form-control" placeholder="Nhập mã, tên sản phẩm">
+          <div class="tablesanpham">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Mã sản phẩm</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Giá bán</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="listproduct">
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="tablesanphamtam">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th colspan="3" style="text-align: center">Sản phẩm tạm</th>
+              </tr>
+              <tr>
+                <th>Sản phẩm</th>
+                <th>Giá bán</th>
+                <th>Số lượng</th>
+                <th>Xóa</th>
+              </tr>
+              </thead>
+              <tbody id="listproducttam">
+
+              </tbody>
+              <tbody>
+                <tr>
+                  <th>Tổng tiền</th>
+                  <th colspan="3" id="tongtientt">0đ</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h5>Thông tin khách hàng</h5>
+          <label style="font-weight: 500">Họ tên</label>
+          <input class="form-control" id="fullname">
+          <label style="font-weight: 500">Số điện thoại</label>
+          <input class="form-control" id="phone">
+          <label style="font-weight: 500">Chọn khuyến mại</label>
+          <select class="form-control" id="khuyenmai">
+
+          </select>
+          <br><br>
+          <button onclick="createInvoice()" class="btn btn-primary form-control action-btn">Tạo đơn hàng</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<div class="modal fade" id="addtk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Chọn chi tiết sản phẩm</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body row">
+        <div class="tablespchitiet">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>Tên màu</th>
+              <th>Kích thước</th>
+              <th>Số lượng</th>
+              <th>Chọn</th>
+            </tr>
+            </thead>
+            <tbody id="listspchitiet">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</html>

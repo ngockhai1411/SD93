@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/voucher.js"></script>
+    <script>
+        window.onload = function() {
+            loadAVoucher();
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="lb-form">Mã voucher</label>
+                    <input id="code" type="text" class="form-control">
+                    <label class="lb-form">Tên voucher</label>
+                    <input id="namevoucher" type="text" class="form-control">
+                    <label class="lb-form">Số tiền đơn hàng tối thiểu</label>
+                    <input id="minamount" type="number" class="form-control">
+                    <label class="lb-form">Số tiền giảm giá</label>
+                    <input id="discount" type="number" class="form-control">
+                </div>
+                <div class="col-sm-5">
+                    <label class="lb-form">Từ ngày</label>
+                    <input id="from" type="date" class="form-control">
+                    <label class="lb-form">Đến ngày</label>
+                    <input id="to" type="date" class="form-control">
+
+                    <label class="checkbox-custom" style="margin-top: 8px;margin-bottom: 11px">Khóa voucher
+                        <input id="lockvoucher" type="checkbox">
+                        <span class="checkmark-checkbox"></span>
+                    </label>
+                    <br>
+                    <button onclick="saveVoucher()" class="btn btn-success form-control action-btn">Thêm/ Cập nhật voucher</button>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+
+<script>
+    window.onload = function() {
+        loadAVoucher();
+        checkDates();  // Kiểm tra ngày khi trang tải
+    }
+
+    // Kiểm tra ngày khi người dùng thay đổi giá trị trong các ô nhập ngày
+    document.getElementById("from").addEventListener("change", checkDates);
+    document.getElementById("to").addEventListener("change", checkDates);
+
+
+
+</script>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/doanhthu.js"></script>
+    <script>
+        window.onload = function() {
+            revenueYear(new Date().getFullYear());
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-12 header-sp row ">
+                    <div class="col-md-3">
+                        <p class="loctheongay">Chọn năm cần xem</p>
+                        <select id="nams" class="form-control">
+                            <option id="2023">2023</option>
+                            <option id="2024">2024</option>
+                            <option id="2025">2025</option>
+                            <option id="2026">2026</option>
+                            <option id="2027">2027</option>
+                            <option id="2028">2028</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2"><br>
+                        <button onclick="loadByNam()" class="btn btn-primary form-control" style="margin-top: 10px;"><i class="fa fa-filter"></i> Lọc</button>
+                    </div>
+                </div>
+                <div class="col-sm-12 divtale">
+                    <div class="card chart-container divtale">
+                        <canvas id="chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+
+</html>

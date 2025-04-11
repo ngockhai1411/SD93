@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="/admin/js/menu.js"></script>
+    <script src="/admin/js/category.js"></script>
+    <script src="/admin/js/product.js"></script>
+    <script>
+        window.onload = function() {
+            loadAllCategorySelect();
+            loadProduct(0, "", null);
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavEmployee"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-12 header-sp">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6 col-6">
+                            <label class="lb-form">Chọn danh mục</label>
+                            <select id="listdpar" class="form-control" multiple style="width: 100%;">
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-sm-6 col-6">
+                            <label class="lb-form" style="display: block;">&ThinSpace;</label>
+                            <button onclick="filterByCate()" class="btn btn-primary"><i class="fa fa-filter"></i> Lọc</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="wrapper">
+                        <div class="headertable">
+                            <div class="divsearchtb">
+                                <label>search: </label>
+                                <input onkeyup="loadProduct(0,this.value,null)" id="searchtable" placeholder="tìm kiếm" class="inputsearchtable">
+                            </div>
+                        </div>
+                        <table class="table table-striped tablefix">
+                            <thead class="thead-tablefix">
+                            <tr>
+                                <th>id</th>
+                                <th>Ảnh</th>
+                                <th>Mã</th>
+                                <th>Danh mục</th>
+                                <th>Thông tin</th>
+                                <th>Tên</th>
+                                <th>Giá</th>
+                                <th>Ngày tạo</th>
+                                <th>Số lượng bán</th>
+                                <th class="sticky-col">Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listproduct">
+                            <tr>
+                                <td>#2342</td>
+                                <td><img src="" style="width: 100px;"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="sticky-col">
+                                    <i class="fa fa-trash-alt iconaction"></i>
+                                    <i class="fa fa-edit iconaction"></i><br>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pageable">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+
+</html>

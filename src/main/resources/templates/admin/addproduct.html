@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/product.js"></script>
+    <script>
+        window.onload = function() {
+            loadInit();
+            loadAllCategorySelect();
+            loadAProduct();
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-12 header-sps">
+                    <div class="title-add-admin">
+                        <p>Hãy thêm sản phẩm cùng kích thước và màu sắc sản phẩm</p>
+                    </div>
+                </div>
+                <div class="group-tabs">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="tabtk nav-item active"><a data-toggle="tab" class="nav-link" aria-current="page" href="#home">Thông tin sản phẩm</a></li>
+                        <li class="tabtk nav-item"><a href="#profile" data-toggle="tab" class="nav-link">Màu sắc/ kích thước</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content contentab">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <div class="col-sm-12">
+                            <div class="form-add">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12 col-12">
+                                        <label class="lb-form">Mã sản phẩm</label>
+                                        <input id="codesp" type="text" class="form-control">
+                                        <label class="lb-form">Tên sản phẩm</label>
+                                        <input id="namesp" type="text" class="form-control">
+                                        <label class="lb-form">Alias</label>
+                                        <input id="alias" type="text" class="form-control">
+                                        <label class="lb-form">Giá tiền</label>
+                                        <input id="price" type="text" class="form-control">
+                                        <label class="lb-form">Danh mục sản phẩm</label>
+                                        <select id="listdpar" class="form-control" multiple style="width: 100%;">
+                                        </select>
+                                        <br>
+                                        <div class="loading" id="loading">
+                                            <div class="bar1 bar"></div>
+                                        </div><br>
+                                        <button onclick="saveProduct()" class="btn btn-primary form-control">Thêm/ cập nhật</button>
+                                    </div>
+                                    <div class="col-md-8 col-sm-12 col-12">
+                                        <label class="lb-form">Ảnh nền</label>
+                                        <input id="imgbanner" type="file" class="form-control">
+                                        <img src="" id="imgpreproduct" style="width: 70px;margin-top: 5px;display: block;">
+                                        <label class="lb-form">Ảnh phụ</label>
+                                        <input id="choosefile" multiple type="file" style="visibility: hidden;">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row" id="preview">
+                                                    <div class="col-md-3" id="chon-anhs" style="height: 100px;">
+                                                        <div style="height: 120px;" id="choose-image" class="choose-image" onclick="document.getElementById('choosefile').click(); return false;">
+                                                            <p><i class="fas fa-camera" id="camera"></i></p>
+                                                            <p id="numimage">Đăng từ 3 ảnh</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="row" id="anhdathem" style="display: none;">
+                                                <div class="col-sm-12">
+                                                    <h4 style="margin-top: 30px;">Ảnh đã thêm</h4>
+                                                </div>
+                                                <div id="listanhdathem" class="row">
+
+                                                </div>
+                                                <!-- <div class="col-md-4">
+                                                    <img style="width: 90%;" src="../image/detail.jpeg" class="image-upload">
+                                                    <button class="btn btn-danger form-control">Xóa ảnh</button>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <label class="lb-form">Mô tả sản phẩm</label>
+                                        <textarea id="editor" name="content"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">
+                        <div class="row">
+                            <div id="listcolorblock" class="col-md-12 col-sm-12 col-12 row" style="padding-top: 20px;">
+                                <!-- <div class="col-sm-6">
+                                    <div class="singlecolor row">
+                                        <div class="col-12"><i onclick="removeColorBlock(this)" class="fa fa-trash pointer"></i></div>
+                                        <div class="col-8 inforcolor">
+                                            <input type="hidden" class="idcolor">
+                                            <label class="lb-form">Tên màu:</label>
+                                            <input type="text" class="form-control colorName">
+                                            <label class="lb-form">Ảnh màu</label>
+                                            <input onchange="priviewImg(this)" type="file" class="form-control fileimgclo">
+                                        </div>
+                                        <div class="col-4 divimgpre">
+                                            <img class="imgpreview" src="" style="width: 100%;">
+                                        </div>
+                                        <span onclick="addSizeBlock(this)" class="pointer btnaddsize"><i class="fa fa-plus"></i> Thêm size</span>
+                                        <div class="listsizeblock">
+                                            <div class="singelsizeblock">
+                                                <input type="hidden" class="idsize">
+                                                <input placeholder="tên size" class="sizename">
+                                                <input placeholder="Số lượng" value="0" class="sizequantity">
+                                                <i onclick="removeInputSize(this)" class="fa fa-trash-alt trashsize"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <button onclick="addBlockColor()" id="myBtn"><i class="fa fa-plus-circle"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<script src="https://cdn.tiny.cloud/1/f6s0gxhkpepxkws8jawvfwtj0l9lv0xjgq1swbv4lgcy3au3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#editor',
+    });
+    var hash = location.hash.substr(1);
+    if (hash != "") {
+        var tabb = document.getElementsByClassName("tab-pane");
+        for (i = 0; i < tabb.length; i++) {
+            document.getElementsByClassName("tab-pane")[i].classList.remove("active");
+        }
+        var tabs = document.getElementsByClassName("tabdv");
+        for (i = 0; i < tabs.length; i++) {
+            document.getElementsByClassName("tabdv")[i].classList.remove("activetabdv");
+        }
+        document.getElementById(hash).classList.add('active')
+    }
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hóa Đơn Giá Trị Gia Tăng</title>
+    <script>
+        window.onload = function (){
+            loadDetailInvoicePrint();
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+
+        .invoice-container {
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header h1 {
+            color: red;
+            margin-bottom: 5px;
+        }
+
+        .header h2 {
+            font-size: 16px;
+            margin-top: 0;
+        }
+
+        .shop-info,
+        .customer-info {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .shop-info table,
+        .customer-info table {
+            width: 100%;
+        }
+
+        .shop-info td,
+        .customer-info td {
+            padding: 5px 0;
+        }
+
+        table.items {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table.items th,
+        table.items td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        table.items th {
+            background-color: #f2f2f2;
+        }
+
+        .totals {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .totals .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .signatures div {
+            text-align: center;
+        }
+
+        .signatures div span {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .print-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="invoice-container" id="invoice">
+    <div class="header">
+        <h1>HÓA ĐƠN MUA HÀNG</h1>
+        <h2>VAT INVOICE</h2>
+    </div>
+
+    <div class="shop-info">
+        <table>
+            <tr>
+                <td><strong>Cửa Hàng:</strong> EASY SHOP</td>
+                <td><strong>Mẫu số:</strong> 01GTKTO/001</td>
+            </tr>
+            <tr>
+                <td><strong>Mã số thuế:</strong> 0101243150</td>
+                <td><strong>Ký hiệu:</strong> TS/20E</td>
+            </tr>
+            <tr>
+                <td><strong>Địa chỉ:</strong> Số 1, Phố Trịnh Văn Bô, Phường Phương Canh, Quận Nam Từ Liêm, Thành phố Hà Nội, Việt Nam</td>
+                <td><strong>Mã hóa đơn: <span id="mahoadon"></span></strong></td>
+            </tr>
+            <tr>
+                <td><strong>Điện thoại:</strong> 0398525912</td>
+                <td><strong>Ngày tạo: <span id="ngayTao"></span></strong></td>
+            </tr>
+            <tr>
+                <td><strong>Số tài khoản:</strong> 0398525912 tại Ngân hàng MB Bank, Hà Nội</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <table class="items">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Tên</th>
+            <th>Size</th>
+            <th>Màu sắc</th>
+            <th>Số lượng</th>
+            <th>Đơn giá</th>
+            <th>Tổng</th>
+        </tr>
+        </thead>
+        <tbody id="listDetailinvoice">
+        </tbody>
+    </table>
+
+    <div class="totals">
+        <div class="row">
+            <span>Cộng tiền hàng:</span>
+            <span id="tongtam">7,228,400</span>
+        </div>
+        <div class="row">
+            <span>Giảm giá:</span>
+            <span id="giamgia">0đ</span>
+        </div>
+        <div class="row">
+            <strong>Tiền thanh toán:</strong>
+            <strong id="tongTientt">7,228,400</strong>
+        </div>
+    </div>
+
+    <div class="signatures">
+        <div>
+        </div>
+        <div id="tenkhachhang">
+<!--            <p>Khách Hàng</p>-->
+<!--            <span></span>-->
+        </div>
+    </div>
+</div>
+
+<button class="print-button" onclick="printInvoice()">In Đơn Hàng</button>
+
+<script>
+    function formatmoney(money) {
+        const VND = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+        });
+        return VND.format(money);
+    }
+    function printInvoice() {
+        const invoice = document.getElementById('invoice').outerHTML;
+        const style = document.head.innerHTML;
+        const printWindow = window.open('', '', 'width=800,height=600');
+        printWindow.document.write('<html><head><title>Print Invoice</title>' + style + '</head><body>');
+        printWindow.document.write(invoice);
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
+</script>
+<script src="js/invoice.js"></script>
+</body>
+</html>
